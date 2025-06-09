@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Recherche BenYedder</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .test-case { margin: 15px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+        .keyword { background: #e3f2fd; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        .result { margin-top: 10px; padding: 10px; background: #e8f5e8; border-radius: 5px; }
+        .success { color: #2e7d32; }
+        .info { color: #1976d2; }
+        h1 { color: #8B4513; text-align: center; }
+        h2 { color: #4682b4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de la Recherche BenYedder</h1>
+        
+        <h2>📝 Mots-clés supportés</h2>
+        <p>Voici tous les mots-clés qui déclenchent la recherche BenYedder :</p>
+        
+        <div class="test-case">
+            <h3>🇫🇷 Français</h3>
+            <span class="keyword">benyedder</span>
+            <span class="keyword">ben yedder</span>
+            <span class="keyword">ben-yedder</span>
+            <span class="keyword">café ben yedder</span>
+            <span class="keyword">cafés ben yedder</span>
+            <span class="keyword">cafe ben yedder</span>
+            <span class="keyword">cafes ben yedder</span>
+            <span class="keyword">coffee ben yedder</span>
+        </div>
+        
+        <div class="test-case">
+            <h3>🇹🇳 Arabe</h3>
+            <span class="keyword">بن يدر</span>
+            <span class="keyword">مقهى بن يدر</span>
+            <span class="keyword">قهوة بن يدر</span>
+        </div>
+        
+        <h2>🔍 Test des Recherches</h2>
+        <div id="testResults"></div>
+        
+        <h2>📋 Instructions de Test</h2>
+        <ol>
+            <li>Ouvrez l'application GPS principale</li>
+            <li>Assurez-vous que la géolocalisation est activée</li>
+            <li>Tapez l'un des mots-clés ci-dessus dans la barre de recherche</li>
+            <li>Vérifiez que les suggestions apparaissent automatiquement</li>
+            <li>Cliquez sur "BenYedder le plus proche" ou sur une boutique spécifique</li>
+            <li>Vérifiez que l'itinéraire se calcule automatiquement</li>
+        </ol>
+        
+        <h2>✅ Résultats Attendus</h2>
+        <div class="result">
+            <p class="success">✓ Les suggestions apparaissent dès que vous tapez "ben" ou "بن"</p>
+            <p class="success">✓ La boutique la plus proche est calculée en temps réel</p>
+            <p class="success">✓ Les distances sont affichées en kilomètres</p>
+            <p class="success">✓ Un clic sur une suggestion lance automatiquement la navigation</p>
+            <p class="info">ℹ️ Message vocal : "Boutique BenYedder la plus proche trouvée : [Nom], à [X] kilomètres"</p>
+        </div>
+    </div>
+
+    <script>
+        // Fonction de test pour vérifier la détection des mots-clés
+        function isBenYedderSearch(query) {
+            const benYedderKeywords = [
+                'benyedder', 'ben yedder', 'ben-yedder', 'café ben yedder', 'cafés ben yedder',
+                'cafe ben yedder', 'cafes ben yedder', 'coffee ben yedder', 'بن يدر',
+                'مقهى بن يدر', 'قهوة بن يدر'
+            ];
+            
+            const normalizedQuery = query.toLowerCase().trim();
+            return benYedderKeywords.some(keyword => normalizedQuery.includes(keyword));
+        }
+
+        // Tests automatiques
+        const testCases = [
+            'BenYedder',
+            'ben yedder',
+            'CAFÉ BEN YEDDER',
+            'cafe ben yedder sousse',
+            'بن يدر',
+            'مقهى بن يدر',
+            'Je cherche BenYedder',
+            'Où est le café Ben Yedder?',
+            'tunis', // Ne devrait pas déclencher
+            'café', // Ne devrait pas déclencher
+            'coffee shop' // Ne devrait pas déclencher
+        ];
+
+        const resultsDiv = document.getElementById('testResults');
+        
+        testCases.forEach(testCase => {
+            const isDetected = isBenYedderSearch(testCase);
+            const shouldDetect = testCase.toLowerCase().includes('ben') || testCase.includes('بن');
+            
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test-case';
+            
+            const status = isDetected === shouldDetect ? '✅' : '❌';
+            const statusText = isDetected ? 'DÉTECTÉ' : 'NON DÉTECTÉ';
+            const statusColor = isDetected === shouldDetect ? '#2e7d32' : '#d32f2f';
+            
+            testDiv.innerHTML = `
+                <strong>Test:</strong> "${testCase}"<br>
+                <strong>Résultat:</strong> <span style="color: ${statusColor}">${status} ${statusText}</span>
+            `;
+            
+            resultsDiv.appendChild(testDiv);
+        });
+    </script>
+</body>
+</html>

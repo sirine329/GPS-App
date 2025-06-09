@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Coordonnées BenYedder</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .location { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .coords { color: #666; font-size: 0.9em; }
+        .link { color: #4682b4; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>🏪 Test des Coordonnées BenYedder</h1>
+    <p>Cliquez sur les liens Google Maps pour vérifier la précision des coordonnées :</p>
+    
+    <div id="locations"></div>
+
+    <script>
+        const benYedderLocations = [
+            {
+                name: "BenYedder Tunis El Jazira",
+                address: "12, Rue El Jazira – Tunis",
+                lat: 36.7978819,
+                lng: 10.1756948,
+                phone: "(+216) 71 325 076"
+            },
+            {
+                name: "BenYedder La Marsa",
+                address: "11, Place Moncef Bey – La Marsa",
+                lat: 36.8320055,
+                lng: 10.1870393,
+                phone: "(+216) 71 743 591"
+            },
+            {
+                name: "BenYedder Le Kram",
+                address: "Angle Av. Habib Bourguiba N°288 et Rue Legha – 2015 Le Kram",
+                lat: 36.8390837,
+                lng: 10.3160264,
+                phone: "(+216) 71 720 274"
+            },
+            {
+                name: "BenYedder Alain Savary",
+                address: "71, Rue Alain Savary, Cité El khadhra – Tunis",
+                lat: 36.8320055,
+                lng: 10.189228,
+                phone: "(+216) 71 770 212"
+            },
+            {
+                name: "BenYedder Sousse",
+                address: "Rue Khaled Ibn El Walid – Sousse",
+                lat: 35.8295862,
+                lng: 10.6416061,
+                phone: "(+216) 73 225 440"
+            },
+            {
+                name: "BenYedder Djerba Houmt Souk",
+                address: "161, Avenue Habib Bourguiba – Houmt Souk – 4180",
+                lat: 33.8759995,
+                lng: 10.8583331,
+                phone: "(+216) 75 650 166"
+            },
+            {
+                name: "BenYedder Jendouba",
+                address: "GP 6 Chorfa 1 – Jendouba",
+                lat: 36.5094497,
+                lng: 8.7993139,
+                phone: "(+216) 78 612 882"
+            },
+            {
+                name: "BenYedder Bizerte",
+                address: "45 avenue habib bourguiba Bizerte 7000",
+                lat: 37.2700208,
+                lng: 9.8667422,
+                phone: "N/A"
+            },
+            {
+                name: "BenYedder Djerba Midoun",
+                address: "Rue 13 Août Jerba Midoun",
+                lat: 33.8072,
+                lng: 10.9925,
+                phone: "(+216) 75 730 011"
+            },
+            {
+                name: "BenYedder Midoun 2",
+                address: "rue salah ben youssef",
+                lat: 33.8100,
+                lng: 10.9950,
+                phone: "(+216) 70 011 100"
+            }
+        ];
+
+        const container = document.getElementById('locations');
+        
+        benYedderLocations.forEach((location, index) => {
+            const div = document.createElement('div');
+            div.className = 'location';
+            
+            const googleMapsUrl = `https://www.google.com/maps?q=${location.lat},${location.lng}`;
+            
+            div.innerHTML = `
+                <h3>☕ ${location.name}</h3>
+                <p><strong>📍 Adresse:</strong> ${location.address}</p>
+                <p><strong>📞 Téléphone:</strong> ${location.phone}</p>
+                <p class="coords"><strong>🌍 Coordonnées:</strong> ${location.lat}, ${location.lng}</p>
+                <a href="${googleMapsUrl}" target="_blank" class="link">🗺️ Voir sur Google Maps</a>
+            `;
+            
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html>

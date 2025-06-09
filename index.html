@@ -14,17 +14,26 @@
 <body>
   <div class="app-container">
     <h1><i class="fas fa-map-marked-alt"></i> Planifier un trajet</h1>
-  
+
     <div id="currentDateTime" class="datetime"></div>
 
+    <div class="info-banner">
+      <i class="fas fa-info-circle"></i>
+      <span>💡 Astuce : Tapez "BenYedder" pour trouver le point le plus proche (boutiques + stands GMS) !</span>
+    </div>
+
     <div class="controls">
-      <input type="text" id="destinationInput" placeholder="Entrez votre destination...">
+      <div class="search-container">
+        <input type="text" id="destinationInput" placeholder="Entrez votre destination ou tapez 'BenYedder' pour la boutique la plus proche...">
+        <div id="searchSuggestions" class="search-suggestions"></div>
+      </div>
       <button id="searchBtn"><i class="fas fa-search"></i> Calculer l’itinéraire</button>
+      <button id="showBenYedderBtn"><i class="fas fa-coffee"></i> Localiser BenYedder</button>
+      <button id="showBoutiquesBtn"><i class="fas fa-store"></i> Boutiques</button>
+      <button id="showStandsBtn"><i class="fas fa-shopping-cart"></i> Stands GMS</button>
+      <button id="hideBenYedderBtn"><i class="fas fa-eye-slash"></i> Masquer Tout</button>
       <button id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> Effacer l’historique</button>
-      <button id="voiceBtn" title="Activer le mode vocal"><i class="fas fa-microphone"></i> Mode Vocal</button>
-      <button id="stopVoiceBtn"><i class="fas fa-microphone-slash"></i> Désactiver le mode vocal</button>
-      <button id="refreshLocationBtn"><i class="fas fa-sync"></i> Recharger la position</button>
-      <button id="clearManualPointsBtn"><i class="fas fa-eraser"></i> Effacer points manuels</button>
+
     </div>
 
     <div class="main-content">
@@ -32,6 +41,8 @@
       <div id="directions">
         <h2><i class="fas fa-route"></i> Itinéraire</h2>
         <div id="directionsContent"></div>
+        <h2><i class="fas fa-coffee"></i> BenYedder - Boutiques & Stands</h2>
+        <div id="benYedderList"></div>
         <h2><i class="fas fa-history"></i> Historique</h2>
         <ul id="historyList"></ul>
       </div>

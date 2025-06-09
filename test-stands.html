@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Stands BenYedder</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .stand { margin: 10px 0; padding: 15px; border: 1px solid #ffccb3; border-radius: 8px; background: #fff5f0; }
+        .boutique { margin: 10px 0; padding: 15px; border: 1px solid #e0e7ff; border-radius: 8px; background: #f8fafc; }
+        .coords { color: #666; font-size: 0.9em; }
+        .link { color: #FF6B35; text-decoration: none; }
+        .boutique .link { color: #8B4513; }
+        h1 { color: #FF6B35; text-align: center; }
+        h2 { color: #8B4513; }
+        .stats { background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Test des Stands "Café du Jour" BenYedder</h1>
+        
+        <div class="stats">
+            <h3>📊 Statistiques</h3>
+            <p><strong>Total :</strong> <span id="totalCount">0</span> points BenYedder</p>
+            <p><strong>Boutiques :</strong> <span id="boutiqueCount">0</span></p>
+            <p><strong>Stands GMS :</strong> <span id="standCount">0</span></p>
+        </div>
+        
+        <h2>🛒 Stands "Café du Jour" dans les GMS</h2>
+        <div id="stands"></div>
+        
+        <h2>☕ Boutiques BenYedder</h2>
+        <div id="boutiques"></div>
+    </div>
+
+    <script>
+        const benYedderLocations = [
+            // Boutiques originales
+            {
+                name: "BenYedder Tunis El Jazira",
+                address: "12, Rue El Jazira – Tunis",
+                lat: 36.7978819,
+                lng: 10.1756948,
+                phone: "(+216) 71 325 076",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder La Marsa",
+                address: "11, Place Moncef Bey – La Marsa",
+                lat: 36.8320055,
+                lng: 10.1870393,
+                phone: "(+216) 71 743 591",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Le Kram",
+                address: "Angle Av. Habib Bourguiba N°288 et Rue Legha – 2015 Le Kram",
+                lat: 36.8390837,
+                lng: 10.3160264,
+                phone: "(+216) 71 720 274",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Alain Savary",
+                address: "71, Rue Alain Savary, Cité El khadhra – Tunis",
+                lat: 36.8320055,
+                lng: 10.189228,
+                phone: "(+216) 71 770 212",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Sousse",
+                address: "Rue Khaled Ibn El Walid – Sousse",
+                lat: 35.8295862,
+                lng: 10.6416061,
+                phone: "(+216) 73 225 440",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Djerba Houmt Souk",
+                address: "161, Avenue Habib Bourguiba – Houmt Souk – 4180",
+                lat: 33.8759995,
+                lng: 10.8583331,
+                phone: "(+216) 75 650 166",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Jendouba",
+                address: "GP 6 Chorfa 1 – Jendouba",
+                lat: 36.5094497,
+                lng: 8.7993139,
+                phone: "(+216) 78 612 882",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Bizerte",
+                address: "45 avenue habib bourguiba Bizerte 7000",
+                lat: 37.2700208,
+                lng: 9.8667422,
+                phone: "N/A",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Djerba Midoun",
+                address: "Rue 13 Août Jerba Midoun",
+                lat: 33.8072,
+                lng: 10.9925,
+                phone: "(+216) 75 730 011",
+                type: "boutique"
+            },
+            {
+                name: "BenYedder Midoun 2",
+                address: "rue salah ben youssef",
+                lat: 33.8100,
+                lng: 10.9950,
+                phone: "(+216) 70 011 100",
+                type: "boutique"
+            },
+            // Nouveaux stands
+            {
+                name: "Stand BenYedder - Carrefour La Marsa",
+                address: "Carrefour La Marsa, La Marsa",
+                lat: 36.8789,
+                lng: 10.3247,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Géant Tunis City",
+                address: "Géant Tunis City, Ariana",
+                lat: 36.8625,
+                lng: 10.1958,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Géant Azur City",
+                address: "Géant Azur City, Raoued",
+                lat: 36.8956,
+                lng: 10.1847,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG La Marsa",
+                address: "Magasin Général La Marsa",
+                lat: 36.8789,
+                lng: 10.3200,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Ezzaouour",
+                address: "Magasin Général Ezzaouour",
+                lat: 36.8456,
+                lng: 10.3123,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Mourouej 5",
+                address: "Magasin Général Mourouej 5",
+                lat: 36.8234,
+                lng: 10.2567,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Cité Mahrajène",
+                address: "Magasin Général Cité Mahrajène",
+                lat: 36.8345,
+                lng: 10.2234,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Monoprix Jardin El Menzah",
+                address: "Monoprix Jardin El Menzah",
+                lat: 36.8567,
+                lng: 10.1789,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Ibn Khaldoun",
+                address: "Magasin Général Ibn Khaldoun",
+                lat: 36.8123,
+                lng: 10.1456,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Carrefour Mourouej 5",
+                address: "Carrefour Mourouej 5",
+                lat: 36.8234,
+                lng: 10.2600,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Monoprix Menzel Bourguiba",
+                address: "Monoprix Menzel Bourguiba",
+                lat: 37.1567,
+                lng: 9.7845,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Carrefour Mall Of Sousse",
+                address: "Carrefour Mall Of Sousse",
+                lat: 35.8234,
+                lng: 10.6345,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Sahloul",
+                address: "Magasin Général Sahloul, Sousse",
+                lat: 35.8456,
+                lng: 10.6123,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Monastir",
+                address: "Magasin Général Monastir",
+                lat: 35.7667,
+                lng: 10.8267,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - MG Kairouan",
+                address: "Magasin Général Kairouan",
+                lat: 35.6781,
+                lng: 10.0967,
+                phone: "N/A",
+                type: "stand"
+            },
+            {
+                name: "Stand BenYedder - Géant Bouriga Mall Djerba",
+                address: "Géant Bouriga Mall Djerba",
+                lat: 33.8567,
+                lng: 10.8456,
+                phone: "N/A",
+                type: "stand"
+            }
+        ];
+
+        const standsContainer = document.getElementById('stands');
+        const boutiquesContainer = document.getElementById('boutiques');
+        
+        const stands = benYedderLocations.filter(loc => loc.type === 'stand');
+        const boutiques = benYedderLocations.filter(loc => loc.type !== 'stand');
+        
+        // Mettre à jour les statistiques
+        document.getElementById('totalCount').textContent = benYedderLocations.length;
+        document.getElementById('boutiqueCount').textContent = boutiques.length;
+        document.getElementById('standCount').textContent = stands.length;
+        
+        // Afficher les stands
+        stands.forEach((location, index) => {
+            const div = document.createElement('div');
+            div.className = 'stand';
+            
+            const googleMapsUrl = `https://www.google.com/maps?q=${location.lat},${location.lng}`;
+            
+            div.innerHTML = `
+                <h3>🛒 ${location.name}</h3>
+                <p><strong>📍 Adresse:</strong> ${location.address}</p>
+                <p><strong>📞 Téléphone:</strong> ${location.phone}</p>
+                <p class="coords"><strong>🌍 Coordonnées:</strong> ${location.lat}, ${location.lng}</p>
+                <a href="${googleMapsUrl}" target="_blank" class="link">🗺️ Voir sur Google Maps</a>
+            `;
+            
+            standsContainer.appendChild(div);
+        });
+        
+        // Afficher les boutiques
+        boutiques.forEach((location, index) => {
+            const div = document.createElement('div');
+            div.className = 'boutique';
+            
+            const googleMapsUrl = `https://www.google.com/maps?q=${location.lat},${location.lng}`;
+            
+            div.innerHTML = `
+                <h3>☕ ${location.name}</h3>
+                <p><strong>📍 Adresse:</strong> ${location.address}</p>
+                <p><strong>📞 Téléphone:</strong> ${location.phone}</p>
+                <p class="coords"><strong>🌍 Coordonnées:</strong> ${location.lat}, ${location.lng}</p>
+                <a href="${googleMapsUrl}" target="_blank" class="link">🗺️ Voir sur Google Maps</a>
+            `;
+            
+            boutiquesContainer.appendChild(div);
+        });
+    </script>
+</body>
+</html>
