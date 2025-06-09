@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planifier un trajet</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <h1><i class="fas fa-map-marked-alt"></i> Planifier un trajet</h1>
+  
+    <div id="currentDateTime" class="datetime"></div>
+
+    <div class="controls">
+      <input type="text" id="destinationInput" placeholder="Entrez votre destination...">
+      <button id="searchBtn"><i class="fas fa-search"></i> Calculer l’itinéraire</button>
+      <button id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> Effacer l’historique</button>
+      <button id="voiceBtn" title="Activer le mode vocal"><i class="fas fa-microphone"></i> Mode Vocal</button>
+      <button id="stopVoiceBtn"><i class="fas fa-microphone-slash"></i> Désactiver le mode vocal</button>
+      <button id="refreshLocationBtn"><i class="fas fa-sync"></i> Recharger la position</button>
+      <button id="clearManualPointsBtn"><i class="fas fa-eraser"></i> Effacer points manuels</button>
+    </div>
+
+    <div class="main-content">
+      <div id="map"></div>
+      <div id="directions">
+        <h2><i class="fas fa-route"></i> Itinéraire</h2>
+        <div id="directionsContent"></div>
+        <h2><i class="fas fa-history"></i> Historique</h2>
+        <ul id="historyList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
